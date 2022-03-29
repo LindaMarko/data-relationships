@@ -1,5 +1,5 @@
-'use strict'
-const Sequelize = require('sequelize')
+'use strict';
+const Sequelize = require('sequelize');
 
 module.exports = (sequelize) => {
   class Movie extends Sequelize.Model {}
@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       },
     },
     { sequelize }
-  )
+  );
 
   Movie.associate = (models) => {
     // TODO Add associations.
@@ -29,8 +29,8 @@ module.exports = (sequelize) => {
         fieldName: 'directorPersonId',
         allowNull: false,
       },
-    })
-  }
+    });
+  };
 
-  return Movie
-}
+  return Movie;
+};

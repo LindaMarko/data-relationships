@@ -24,14 +24,18 @@ const sequelize = new Sequelize(options);
 const models = {};
 
 // Import all of the models.
-fs
-  .readdirSync(path.join(__dirname, 'models'))
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+fs.readdirSync(path.join(__dirname, 'models'))
+  .filter((file) => {
+    return (
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
+    );
   })
   .forEach((file) => {
     console.info(`Importing database model from file: ${file}`);
-    const model = require(path.join(__dirname, 'models', file))(sequelize, Sequelize.DataTypes);
+    const model = require(path.join(__dirname, 'models', file))(
+      sequelize,
+      Sequelize.DataTypes
+    );
     models[model.name] = model;
   });
 
