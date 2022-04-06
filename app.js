@@ -55,7 +55,8 @@ console.log('Testing the connection to the database...');
     // console.log(JSON.stringify(peopleInstances, null, 2));
 
     // Update the global variables for the people instances
-    let [bradBird, vinDiesel, eliMarienthal, craigTNelson, hollyHunter] = peopleInstances;
+    let [bradBird, vinDiesel, eliMarienthal, craigTNelson, hollyHunter] =
+      peopleInstances;
 
     // Add Movies to the Database
     console.log('Adding movies to the database...');
@@ -74,12 +75,26 @@ console.log('Testing the connection to the database...');
     // console.log(JSON.stringify(movieInstances, null, 2));
 
     // Retrieve movies
-    const movies = await Movie.findAll();
+    const movies = await Movie.findAll({
+      include: [
+        {
+          model: Person,
+          as: 'director',
+        },
+      ],
+    });
     console.log(movies.map((movie) => movie.get({ plain: true })));
 
     // Retrieve people
-    const people = await Person.findAll();
-    console.log(people.map((person) => person.get({ plain: true })));
+    const people = await Person.findAll({
+      include: [
+        {
+          model: Movie,
+          as: 'director',
+        },
+      ],
+    });
+    console.log(JSON.stringify(people, null, 2));
 
     process.exit();
   } catch (error) {
